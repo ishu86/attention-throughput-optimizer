@@ -1,8 +1,7 @@
 # Learning GPU Optimization: Implementing Linear Attention in Triton
 
 > **Educational Project**: This repository documents my journey learning GPU kernel optimization
-> by implementing linear attention mechanisms from scratch in Triton. The goal is education,
-> not novelty.
+> by implementing linear attention mechanisms from scratch in Triton. 
 
 ## Learning Objectives
 

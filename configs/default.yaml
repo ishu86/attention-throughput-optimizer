@@ -1,0 +1,17 @@
+# Default ATO configuration
+
+# Device settings
+device: cuda
+dtype: float16
+
+# Benchmark defaults
+warmup_iterations: 10
+benchmark_iterations: 100
+
+# Profiling settings
+profile_memory: true
+profile_cuda: false
+
+# Output settings
+output_dir: results
+save_raw_results: true

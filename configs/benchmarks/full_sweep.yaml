@@ -1,0 +1,31 @@
+# Full benchmark sweep configuration
+
+benchmark:
+  # Attention mechanisms to benchmark
+  attention_names:
+    - standard
+    - multi_head
+    - gqa
+
+  # Input dimensions
+  batch_sizes: [1, 2, 4, 8, 16]
+  seq_lengths: [256, 512, 1024, 2048, 4096]
+  embed_dims: [768, 1024]
+  num_heads: [12, 16]
+
+  # Benchmark parameters
+  warmup_iterations: 10
+  benchmark_iterations: 100
+
+  # Options
+  causal: true
+  profile_memory: true
+
+  # Hardware
+  device: cuda
+  dtype: float16
+
+output:
+  dir: results/full_sweep
+  save_csv: true
+  save_json: true

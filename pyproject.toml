@@ -1,0 +1,84 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "attention-throughput-optimizer"
+version = "0.1.0"
+description = "Research toolkit for attention mechanism optimization and benchmarking on NVIDIA GPUs"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+keywords = ["attention", "transformer", "cuda", "gpu", "optimization", "benchmarking", "flash-attention"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "torch>=2.2.0",
+    "numpy>=1.24.0",
+    "omegaconf>=2.3.0",
+    "pyyaml>=6.0",
+    "tabulate>=0.9.0",
+    "rich>=13.0.0",
+    "pandas>=2.0.0",
+    "matplotlib>=3.7.0",
+]
+
+[project.optional-dependencies]
+flash = [
+    "flash-attn>=2.5.0",
+]
+xformers = [
+    "xformers>=0.0.23",
+]
+triton = [
+    "triton>=2.2.0",
+]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-benchmark>=4.0.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.5.0",
+    "pre-commit>=3.4.0",
+]
+all = [
+    "attention-throughput-optimizer[flash,xformers,triton,dev]",
+]
+
+[project.scripts]
+ato-bench = "ato.benchmark.runner:main"
+ato-profile = "ato.profiling.memory:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+target-version = ['py310', 'py311', 'py312']
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "W", "I", "N", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --cov=ato --cov-report=term-missing"
+markers = [
+    "gpu_required: marks tests as requiring GPU (deselect with '-m \"not gpu_required\"')",
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
